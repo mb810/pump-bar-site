@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Pump Bar | Functional Chocolate</title>
+  <meta name="description" content="Pump Bar is functional chocolate, built for performance. Made with Pink Manuka, beetroot, pomegranate, dark chocolate and Celtic sea salt." />
+
+  <style>
+    :root {
+      --black: #050505;
+      --dark: #0d0d0f;
+      --panel: #121215;
+      --grey: #b7b7b7;
+      --muted: #777;
+      --white: #f5f5f0;
+      --pink: #ff2f86;
+      --pink-soft: rgba(255, 47, 134, 0.18);
+      --pink-glow: rgba(255, 47, 134, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 85% 10%, rgba(255, 47, 134, 0.15), transparent 28%),
+        radial-gradient(circle at 10% 90%, rgba(255, 47, 134, 0.08), transparent 30%),
+        var(--black);
+      color: var(--white);
+      line-height: 1.5;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 24px 6vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(5, 5, 5, 0.72);
+      backdrop-filter: blur(18px);
+      z-index: 20;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .logo {
+      font-weight: 950;
+      letter-spacing: -0.06em;
+      font-size: 22px;
+    }
+
+    .logo span,
+    .pink-text {
+      color: var(--pink);
+      text-shadow: 0 0 30px var(--pink-glow);
+    }
+
+    .nav nav {
+      display: flex;
+      gap: 26px;
+      font-size: 14px;
+      color: var(--grey);
+    }
+
+    .nav a:hover {
+      color: var(--white);
+    }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      padding: 150px 6vw 90px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 68px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--pink);
+      text-transform: uppercase;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(56px, 8.6vw, 122px);
+      line-height: 0.88;
+      letter-spacing: -0.09em;
+      max-width: 980px;
+      text-transform: uppercase;
+    }
+
+    h1 em {
+      color: var(--pink);
+      font-style: normal;
+      text-shadow: 0 0 34px var(--pink-glow);
+    }
+
+    h2 {
+      font-size: clamp(38px, 5vw, 74px);
+      line-height: 0.94;
+      letter-spacing: -0.07em;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-text {
+      max-width: 640px;
+      color: var(--grey);
+      font-size: 20px;
+      margin-top: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 38px;
+      flex-wrap: wrap;
+    }
+
+    .button,
+    button {
+      padding: 15px 23px;
+      border-radius: 999px;
+      font-weight: 900;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .primary,
+    button {
+      background: var(--pink);
+      color: white;
+      box-shadow: 0 12px 45px rgba(255, 47, 134, 0.24);
+    }
+
+    .secondary {
+      border: 1px solid rgba(255,255,255,0.16);
+      color: var(--white);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .hero-card {
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 20%, var(--pink-soft), transparent 45%),
+        linear-gradient(180deg, #141417, #080808);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 34px;
+      padding: 24px;
+      box-shadow: 0 0 90px rgba(255, 47, 134, 0.12), 0 40px 90px rgba(0,0,0,0.55);
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      background: var(--pink);
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.2;
+      top: -90px;
+      right: -90px;
+    }
+
+    .hero-image {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      display: block;
+      border-radius: 24px;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.45);
+    }
+
+    .hero-card-caption {
+      position: relative;
+      z-index: 1;
+      color: var(--grey);
+      font-size: 14px;
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    .section {
+      position: relative;
+      z-index: 1;
+      padding: 112px 6vw;
+    }
+
+    .section-intro {
+      max-width: 860px;
+      margin-bottom: 36px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: rgba(18,18,21,0.82);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 26px;
+      padding: 30px;
+      min-height: 220px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.22);
+    }
+
+    .card .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 15px;
+      background: var(--pink-soft);
+      color: var(--pink);
+      display: grid;
+      place-items: center;
+      font-weight: 950;
+      margin-bottom: 24px;
+    }
+
+    .card p,
+    .section p {
+      color: var(--grey);
+      font-size: 17px;
+    }
+
+    .image-section {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 56px;
+      align-items: center;
+      background: #080808;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .product-image {
+      width: 100%;
+      display: block;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 35px 90px rgba(0,0,0,0.5);
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    .feature-list div {
+      border-left: 3px solid var(--pink);
+      padding: 18px 0 18px 22px;
+      background: linear-gradient(90deg, var(--pink-soft), transparent);
+      border-radius: 0 22px 22px 0;
+    }
+
+    .feature-list strong {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .how-section {
+      background: #050505;
+    }
+
+    .layer-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.875fr 0.875fr;
+      gap: 18px;
+      margin-top: 36px;
+    }
+
+    .layer-card {
+      background: rgba(18,18,21,0.86);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 26px;
+      padding: 30px;
+      min-height: 330px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.24);
+    }
+
+    .featured-layer {
+      background:
+        radial-gradient(circle at 20% 0%, rgba(255,47,134,0.17), transparent 42%),
+        rgba(18,18,21,0.92);
+    }
+
+    .layer-card .number {
+      display: inline-block;
+      color: var(--pink);
+      font-size: 13px;
+      font-weight: 950;
+      letter-spacing: 0.12em;
+      margin-bottom: 22px;
+    }
+
+    .layer-card h3 {
+      font-size: 28px;
+      margin-bottom: 14px;
+    }
+
+    .layer-card p {
+      color: var(--grey);
+      font-size: 16px;
+    }
+
+    .mini-breakdown {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .mini-breakdown div {
+      border-left: 2px solid var(--pink);
+      padding: 12px 0 12px 16px;
+      background: linear-gradient(90deg, var(--pink-soft), transparent);
+      border-radius: 0 18px 18px 0;
+    }
+
+    .mini-breakdown strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 15px;
+    }
+
+    .mini-breakdown p {
+      font-size: 14px;
+    }
+
+    .timing-strip {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .timing-strip div {
+      border-left: 3px solid var(--pink);
+      padding: 24px 0 24px 26px;
+      background: linear-gradient(90deg, var(--pink-soft), transparent);
+      border-radius: 0 24px 24px 0;
+    }
+
+    .timing-strip strong {
+      display: block;
+      font-size: 32px;
+      font-weight: 950;
+      letter-spacing: -0.05em;
+      margin-bottom: 4px;
+    }
+
+    .statement {
+      text-align: center;
+      padding-top: 130px;
+      padding-bottom: 130px;
+      background: #080808;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .statement h2 {
+      max-width: 980px;
+      margin: 0 auto 28px;
+    }
+
+    .statement p {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .waitlist {
+      text-align: center;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 47, 134, 0.16), transparent 38%),
+        #050505;
+    }
+
+    .waitlist form {
+      max-width: 540px;
+      margin: 34px auto 12px;
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      flex: 1;
+      padding: 17px 19px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: #101010;
+      color: white;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--pink);
+    }
+
+    .small {
+      font-size: 13px !important;
+      color: var(--muted) !important;
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 38px 6vw;
+      display: flex;
+      justify-content: space-between;
+      color: var(--grey);
+      font-size: 14px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .grid,
+      .image-section,
+      .layer-grid,
+      .timing-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 130px;
+      }
+
+      .nav nav {
+        display: none;
+      }
+
+      .waitlist form {
+        flex-direction: column;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="noise"></div>
+
+  <header class="nav">
+    <div class="logo">PUMP <span>BAR</span></div>
+    <nav>
+      <a href="#product">Product</a>
+      <a href="#inside">Inside</a>
+      <a href="#how">How it works</a>
+      <a href="#waitlist">Waitlist</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">Functional chocolate. No BS.</p>
+        <h1>Functional chocolate,<br>built for <em>performance.</em></h1>
+        <p class="hero-text">
+          A premium dark chocolate bar with Pink Manuka™, beetroot, pomegranate and Celtic sea salt.
+          Real ingredients, built for training.
+        </p>
+        <div class="hero-actions">
+          <a href="#waitlist" class="button primary">Join the waitlist</a>
+          <a href="#inside" class="button secondary">See inside</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <img src="assets/pumpbar-pack.png" alt="Pump Bar packaging" class="hero-image">
+        <p class="hero-card-caption">Pink Manuka™ · 80% dark chocolate · OG Peanut Butter</p>
+      </div>
+    </section>
+
+    <section id="product" class="section">
+      <div class="section-intro">
+        <p class="eyebrow">The product</p>
+        <h2>A proper pre-workout bar.</h2>
+        <p>
+          Performance nutrition in a format people actually want to eat.
+          No neon powder. No fake energy drink flavour. No nonsense.
+        </p>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="icon">PM</div>
+          <h3>Pink Manuka™</h3>
+          <p>Manuka honey blended with beetroot and pomegranate for natural pump-supporting compounds.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">80</div>
+          <h3>80% Dark Chocolate</h3>
+          <p>A rich dark chocolate shell that makes the product feel premium, not like another gym supplement.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">Na</div>
+          <h3>Celtic Sea Salt</h3>
+          <p>Visible salt flakes for taste, hydration support and a proper finished look on the bar.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="inside" class="section image-section">
+      <div>
+        <p class="eyebrow">Inside the bar</p>
+        <h2><span class="pink-text">Pink Manuka™</span> core.</h2>
+        <p>
+          A dark chocolate shell, a thick pink Manuka honey blend, and an OG peanut butter base.
+          Sweet, salty, rich and built around the pre-workout window.
+        </p>
+
+        <div class="feature-list">
+          <div>
+            <strong>Pink Manuka™ blend</strong>
+            <p>Manuka honey, beetroot and pomegranate.</p>
+          </div>
+
+          <div>
+            <strong>Crunchy OG peanut butter base</strong>
+            <p>Texture, flavour and a proper indulgent bite.</p>
+          </div>
+
+          <div>
+            <strong>Celtic sea salt flakes</strong>
+            <p>Visible on top for taste, hydration support and premium finish.</p>
+          </div>
+        </div>
+      </div>
+
+      <img src="assets/pumpbar-cross-section.png" alt="Pump Bar cross section with Pink Manuka filling" class="product-image">
+    </section>
+
+    <section id="how" class="section how-section">
+      <div class="section-intro">
+        <p class="eyebrow">How it works</p>
+        <h2>Three functional layers.</h2>
+        <p>
+          Pump Bar is built around the pre-workout window: fast energy first, then nitric oxide-supporting ingredients for the pump window later.
+        </p>
+      </div>
+
+      <div class="layer-grid">
+        <div class="layer-card featured-layer">
+          <span class="number">01</span>
+          <h3><span class="pink-text">Pink Manuka™</span> core</h3>
+          <p>
+            The signature centre: a thick pink Manuka honey blend with beetroot and pomegranate.
+          </p>
+
+          <div class="mini-breakdown">
+            <div>
+              <strong>Manuka honey</strong>
+              <p>Natural carbohydrates for fast pre-workout energy.</p>
+            </div>
+
+            <div>
+              <strong>Beetroot</strong>
+              <p>Rich in dietary nitrates, which support nitric oxide production and blood flow.</p>
+            </div>
+
+            <div>
+              <strong>Pomegranate</strong>
+              <p>Polyphenol-rich fruit linked with antioxidant support and vascular function.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="layer-card">
+          <span class="number">02</span>
+          <h3>80% dark chocolate shell</h3>
+          <p>
+            Rich dark chocolate provides cocoa flavanols, which are associated with vascular health and blood flow.
+            It also gives Pump Bar its premium taste and makes it feel like real food, not another powder.
+          </p>
+        </div>
+
+        <div class="layer-card">
+          <span class="number">03</span>
+          <h3>Celtic sea salt flakes</h3>
+          <p>
+            Salt provides sodium, an important electrolyte lost through sweat. It supports hydration, balances the sweetness,
+            and gives the bar its visible premium finish.
+          </p>
+        </div>
+      </div>
+
+      <div class="timing-strip">
+        <div>
+          <strong>10–20 mins</strong>
+          <p>Fast energy and hydration support from honey, dark chocolate and salt.</p>
+        </div>
+
+        <div>
+          <strong>60–120 mins</strong>
+          <p>Peak pump window from nitric oxide-supporting beetroot and pomegranate.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section statement">
+      <p class="eyebrow">No synthetic pre-workout</p>
+      <h2>Made for people who want performance without compromising their gut.</h2>
+      <p>
+        Real ingredients. Premium chocolate. Natural performance support.
+        A pre-workout product that does not feel like a science experiment.
+      </p>
+    </section>
+
+    <section id="waitlist" class="section waitlist">
+      <p class="eyebrow">Coming soon</p>
+      <h2>Be first to try Pump Bar.</h2>
+      <p>Join the early list for samples, launch updates and first access.</p>
+
+      <form>
+        <input type="email" placeholder="Your email" required />
+        <button type="submit">Join waitlist</button>
+      </form>
+
+      <p class="small">Preview only. The form still needs connecting to Mailchimp, Tally or Netlify Forms.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Pump Bar. All rights reserved.</p>
+    <p>TikTok: @pump.bar · Instagram coming soon · pumpbar.uk</p>
+  </footer>
+</body>
+</html>
