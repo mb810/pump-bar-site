@@ -443,7 +443,9 @@
       font-size: 13px !important;
       color: var(--muted) !important;
     }
-
+.hidden {
+  display: none;
+}
     footer {
       position: relative;
       z-index: 1;
@@ -660,14 +662,20 @@
       <h2>Be first to try Pump Bar.</h2>
       <p>Join the early list for samples, launch updates and first access.</p>
 
-      <form>
-        <input type="email" placeholder="Your email" required />
-        <button type="submit">Join waitlist</button>
-      </form>
+        <form name="waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/success.html">
+  <input type="hidden" name="form-name" value="waitlist" />
 
-      <p class="small">Preview only. The form still needs connecting to Mailchimp, Tally or Netlify Forms.</p>
-    </section>
-  </main>
+  <p class="hidden">
+    <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+  </p>
+
+  <input type="email" name="email" placeholder="Your email" required />
+  <button type="submit">Join waitlist</button>
+</form>
+
+ <p class="small">No spam. Just launch updates, samples and early access.</p>
+</section>
+</main>
 
   <footer>
     <p>© 2026 Pump Bar. All rights reserved.</p>
