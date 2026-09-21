@@ -119,8 +119,24 @@
       color: var(--muted);
       font-size: 13px;
       line-height: 1.55;
-      max-width: 460px;
+      max-width: 520px;
       animation: rise 0.95s ease-out 0.22s both;
+    }
+
+    .privacy a {
+      color: var(--grey);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .privacy a:hover {
+      color: var(--white);
+    }
+
+    .privacy-proposed {
+      display: inline;
+      color: var(--pink);
+      font-weight: 700;
     }
 
     .back {
@@ -195,7 +211,9 @@
         Thanks for signing up. We’ll email you when Pump Bar launches — nothing else from this list.
       </p>
       <p class="privacy">
-        Your email is only used for launch notification. No samples or early-access offers.
+        Pump Bar Limited uses your email only for launch notification. It is stored via Netlify Forms.
+        To request removal, email <a href="mailto:info@pumpbar.uk">info@pumpbar.uk</a>.
+        <span class="privacy-proposed">[Proposed — pending approval]</span> We propose deleting your email within 90 days of the launch notification (or sooner on request), and deleting unused waitlist emails if launch has not happened within 24 months of signup.
       </p>
       <a class="back" href="/">Back to Pump Bar</a>
     </main>
