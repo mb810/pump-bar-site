@@ -120,7 +120,7 @@
       animation: rise 0.95s ease-out 0.24s both;
     }
 
-    .waitlist label {
+    .waitlist > label[for="email"] {
       display: block;
       font-size: 13px;
       font-weight: 600;
@@ -184,28 +184,37 @@
       transform: translateY(0);
     }
 
-    .privacy {
-      margin-top: 16px;
+    .consent {
+      margin-top: 14px;
       color: var(--muted);
       font-size: 13px;
       line-height: 1.55;
       max-width: 520px;
     }
 
-    .privacy a {
+    .consent a {
       color: var(--grey);
       text-decoration: underline;
       text-underline-offset: 2px;
     }
 
-    .privacy a:hover {
+    .consent a:hover {
       color: var(--white);
     }
 
-    .privacy-proposed {
-      display: inline;
-      color: var(--pink);
-      font-weight: 700;
+    .privacy-links {
+      margin-top: 10px;
+      font-size: 13px;
+    }
+
+    .privacy-links a {
+      color: var(--grey);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .privacy-links a:hover {
+      color: var(--white);
     }
 
     .hidden {
@@ -213,11 +222,26 @@
     }
 
     footer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      justify-content: space-between;
+      align-items: center;
       color: var(--muted);
       font-size: 13px;
       padding-top: 20px;
       border-top: 1px solid var(--line);
       animation: rise 1s ease-out 0.32s both;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    footer a:hover {
+      color: var(--white);
     }
 
     @keyframes rise {
@@ -274,6 +298,7 @@
       </p>
 
       <form
+        id="waitlist-form"
         class="waitlist"
         name="waitlist"
         method="POST"
@@ -282,6 +307,13 @@
         action="/success.html"
       >
         <input type="hidden" name="form-name" value="waitlist" />
+        <input type="hidden" name="consent_version" value="waitlist-consent-v1" />
+        <input
+          type="hidden"
+          name="consent_text"
+          value="By submitting, I consent to Pump Bar Limited emailing me when Pump Bar launches (launch notification only)."
+        />
+        <input type="hidden" name="signed_at" id="signed_at" value="" />
 
         <p class="hidden">
           <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
@@ -300,18 +332,32 @@
           <button type="submit">Notify me at launch</button>
         </div>
 
-        <p class="privacy">
-          Pump Bar Limited will use your email only to notify you when Pump Bar launches — no samples, no early-access offers, and no other marketing from this list.
-          Submissions are stored via Netlify Forms.
-          To ask us to remove your email, contact <a href="mailto:info@pumpbar.uk">info@pumpbar.uk</a>.
-          <span class="privacy-proposed">[Proposed — pending approval]</span> We propose keeping your email until we send the launch notification, then deleting it within 90 days of that email (or sooner if you request removal). If launch has not happened within 24 months of signup, we propose deleting unused waitlist emails.
+        <p class="consent">
+          By submitting, you consent to Pump Bar Limited emailing you when Pump Bar launches — launch notification only.
+          <a href="/privacy.html">Privacy notice</a>
         </p>
       </form>
     </main>
 
     <footer>
-      <p>© 2026 Pump Bar</p>
+      <p>© 2026 Pump Bar Limited</p>
+      <p>
+        <a href="/privacy.html">Privacy notice</a>
+        ·
+        <a href="mailto:info@pumpbar.uk">info@pumpbar.uk</a>
+      </p>
     </footer>
   </div>
+
+  <script>
+    (function () {
+      var form = document.getElementById("waitlist-form");
+      if (!form) return;
+      form.addEventListener("submit", function () {
+        var field = document.getElementById("signed_at");
+        if (field) field.value = new Date().toISOString();
+      });
+    })();
+  </script>
 </body>
 </html>
