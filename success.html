@@ -4,15 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>You’re on the list | Pump Bar</title>
+  <title>You’re on the waiting list | Pump Bar</title>
+  <meta name="description" content="You’re on the Pump Bar waiting list. We’ll email you when Pump Bar launches." />
+  <meta name="robots" content="noindex" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="You’re on the waiting list | Pump Bar" />
+  <meta property="og:description" content="We’ll email you when Pump Bar launches." />
+  <meta property="og:site_name" content="Pump Bar" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="You’re on the waiting list | Pump Bar" />
+  <meta name="twitter:description" content="We’ll email you when Pump Bar launches." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     :root {
       --black: #050505;
-      --grey: #b7b7b7;
       --white: #f5f5f0;
+      --grey: #b7b7b7;
+      --muted: #8a8a8a;
       --pink: #ff2f86;
-      --pink-glow: rgba(255, 47, 134, 0.35);
+      --pink-glow: rgba(255, 47, 134, 0.32);
+      --line: rgba(255, 255, 255, 0.08);
     }
 
     * {
@@ -23,75 +40,171 @@
 
     body {
       min-height: 100vh;
-      display: grid;
-      place-items: center;
-      background:
-        radial-gradient(circle at 70% 20%, rgba(255, 47, 134, 0.16), transparent 30%),
-        var(--black);
+      font-family: "Manrope", sans-serif;
       color: var(--white);
-      font-family: Arial, Helvetica, sans-serif;
-      padding: 32px;
-      text-align: center;
+      background:
+        radial-gradient(ellipse 70% 55% at 78% 8%, rgba(255, 47, 134, 0.18), transparent 55%),
+        radial-gradient(ellipse 55% 45% at 8% 92%, rgba(255, 47, 134, 0.09), transparent 50%),
+        linear-gradient(165deg, #08080a 0%, var(--black) 45%, #070709 100%);
+      display: flex;
+      flex-direction: column;
+      padding: clamp(28px, 5vw, 48px) clamp(24px, 6vw, 72px) 36px;
+      line-height: 1.5;
     }
 
-    .card {
-      max-width: 720px;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 32px;
-      padding: 56px 38px;
-      background: rgba(18,18,21,0.86);
-      box-shadow: 0 40px 90px rgba(0,0,0,0.45);
+    .noise {
+      position: fixed;
+      inset: 0;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
     }
 
-    p:first-child {
+    .page {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(28px, 4vw, 40px);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      animation: rise 0.8s ease-out both;
+    }
+
+    .brand a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .brand span {
       color: var(--pink);
-      text-transform: uppercase;
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 0.14em;
-      margin-bottom: 18px;
+      text-shadow: 0 0 28px var(--pink-glow);
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 640px;
+      padding: clamp(48px, 10vh, 96px) 0;
     }
 
     h1 {
-      font-size: clamp(46px, 8vw, 92px);
-      line-height: 0.9;
-      letter-spacing: -0.08em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-
-    h1 span {
-      color: var(--pink);
-      text-shadow: 0 0 30px var(--pink-glow);
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(48px, 8vw, 92px);
+      line-height: 0.94;
+      letter-spacing: 0.02em;
+      margin-top: 28px;
+      animation: rise 0.9s ease-out 0.08s both;
     }
 
     .text {
+      margin-top: 22px;
       color: var(--grey);
-      font-size: 18px;
-      margin-bottom: 34px;
+      font-size: clamp(16px, 2.1vw, 19px);
+      font-weight: 500;
+      max-width: 480px;
+      animation: rise 0.9s ease-out 0.16s both;
     }
 
-    a {
+    .privacy {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+      max-width: 460px;
+      animation: rise 0.95s ease-out 0.22s both;
+    }
+
+    .back {
       display: inline-block;
-      padding: 15px 23px;
-      border-radius: 999px;
+      margin-top: 36px;
+      padding: 15px 22px;
+      border-radius: 10px;
       background: var(--pink);
       color: white;
       text-decoration: none;
-      font-weight: 900;
-      box-shadow: 0 12px 45px rgba(255, 47, 134, 0.24);
+      font-size: 15px;
+      font-weight: 700;
+      box-shadow: 0 12px 40px rgba(255, 47, 134, 0.22);
+      width: fit-content;
+      animation: rise 0.95s ease-out 0.28s both;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+
+    .back:hover {
+      filter: brightness(1.05);
+      box-shadow: 0 14px 48px rgba(255, 47, 134, 0.3);
+      transform: translateY(-1px);
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 13px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      animation: rise 1s ease-out 0.32s both;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .brand,
+      h1,
+      .text,
+      .privacy,
+      .back,
+      footer {
+        animation: none;
+      }
+
+      .back {
+        transition: none;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="card">
-    <p>You’re on the list</p>
-    <h1>Welcome to <span>Pump Bar.</span></h1>
-    <p class="text">
-      You’ll be first to hear about samples, launch updates and early access.
-    </p>
-    <a href="/">Back to site</a>
+  <div class="noise" aria-hidden="true"></div>
+
+  <div class="page">
+    <header>
+      <p class="brand" aria-label="Pump Bar">
+        <a href="/">PUMP <span>BAR</span></a>
+      </p>
+    </header>
+
+    <main class="content">
+      <h1>YOU’RE ON THE WAITING LIST.</h1>
+      <p class="text">
+        Thanks for signing up. We’ll email you when Pump Bar launches — nothing else from this list.
+      </p>
+      <p class="privacy">
+        Your email is only used for launch notification. No samples or early-access offers.
+      </p>
+      <a class="back" href="/">Back to Pump Bar</a>
+    </main>
+
+    <footer>
+      <p>© 2026 Pump Bar</p>
+    </footer>
   </div>
 </body>
 </html>
