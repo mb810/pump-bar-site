@@ -4,18 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>You’re on the waiting list | Pump Bar</title>
-  <meta name="description" content="You’re on the Pump Bar waiting list. We’ll email you when Pump Bar launches." />
-  <meta name="robots" content="noindex" />
+  <title>Company information | Pump Bar</title>
+  <meta name="description" content="Company information for Pump Bar Limited, registered in England and Wales." />
+  <meta name="robots" content="index,follow" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="You’re on the waiting list | Pump Bar" />
-  <meta property="og:description" content="We’ll email you when Pump Bar launches." />
+  <meta property="og:title" content="Company information | Pump Bar" />
+  <meta property="og:description" content="Company information for Pump Bar Limited." />
   <meta property="og:site_name" content="Pump Bar" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="You’re on the waiting list | Pump Bar" />
-  <meta name="twitter:description" content="We’ll email you when Pump Bar launches." />
+  <meta name="twitter:title" content="Company information | Pump Bar" />
+  <meta name="twitter:description" content="Company information for Pump Bar Limited." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -46,10 +46,7 @@
         radial-gradient(ellipse 70% 55% at 78% 8%, rgba(255, 47, 134, 0.18), transparent 55%),
         radial-gradient(ellipse 55% 45% at 8% 92%, rgba(255, 47, 134, 0.09), transparent 50%),
         linear-gradient(165deg, #08080a 0%, var(--black) 45%, #070709 100%);
-      display: flex;
-      flex-direction: column;
-      padding: clamp(28px, 5vw, 48px) clamp(24px, 6vw, 72px) 36px;
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
     .noise {
@@ -64,9 +61,10 @@
     .page {
       position: relative;
       z-index: 1;
-      flex: 1;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
+      padding: clamp(28px, 5vw, 48px) clamp(24px, 6vw, 72px) 36px;
     }
 
     .brand {
@@ -74,7 +72,6 @@
       font-size: clamp(28px, 4vw, 40px);
       letter-spacing: 0.04em;
       line-height: 1;
-      animation: rise 0.8s ease-out both;
     }
 
     .brand a {
@@ -89,70 +86,37 @@
 
     .content {
       flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
       max-width: 640px;
-      padding: clamp(48px, 10vh, 96px) 0;
+      padding: clamp(40px, 8vh, 72px) 0 48px;
     }
 
     h1 {
       font-family: "Bebas Neue", sans-serif;
-      font-size: clamp(48px, 8vw, 92px);
-      line-height: 0.94;
+      font-size: clamp(42px, 7vw, 72px);
+      line-height: 0.95;
       letter-spacing: 0.02em;
       margin-top: 28px;
-      animation: rise 0.9s ease-out 0.08s both;
+      margin-bottom: 28px;
     }
 
-    .text {
-      margin-top: 22px;
+    .company-block {
       color: var(--grey);
-      font-size: clamp(16px, 2.1vw, 19px);
+      font-size: clamp(16px, 2.1vw, 18px);
       font-weight: 500;
-      max-width: 480px;
-      animation: rise 0.9s ease-out 0.16s both;
+      line-height: 1.7;
     }
 
-    .privacy {
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.55;
-      max-width: 520px;
-      animation: rise 0.95s ease-out 0.22s both;
+    .company-block p {
+      margin-bottom: 6px;
     }
 
-    .privacy a {
-      color: var(--grey);
-      text-decoration: underline;
+    .company-block a {
+      color: var(--white);
       text-underline-offset: 2px;
     }
 
-    .privacy a:hover {
-      color: var(--white);
-    }
-
-    .back {
-      display: inline-block;
-      margin-top: 36px;
-      padding: 15px 22px;
-      border-radius: 10px;
-      background: var(--pink);
-      color: white;
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 700;
-      box-shadow: 0 12px 40px rgba(255, 47, 134, 0.22);
-      width: fit-content;
-      animation: rise 0.95s ease-out 0.28s both;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-    }
-
-    .back:hover {
-      filter: brightness(1.05);
-      box-shadow: 0 14px 48px rgba(255, 47, 134, 0.3);
-      transform: translateY(-1px);
+    .company-block a:hover {
+      color: var(--pink);
     }
 
     footer {
@@ -160,12 +124,10 @@
       flex-wrap: wrap;
       gap: 12px 24px;
       justify-content: space-between;
-      align-items: center;
       color: var(--muted);
       font-size: 13px;
       padding-top: 20px;
       border-top: 1px solid var(--line);
-      animation: rise 1s ease-out 0.32s both;
     }
 
     footer a {
@@ -176,30 +138,6 @@
 
     footer a:hover {
       color: var(--white);
-    }
-
-    @keyframes rise {
-      from {
-        transform: translateY(16px);
-      }
-      to {
-        transform: translateY(0);
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .brand,
-      h1,
-      .text,
-      .privacy,
-      .back,
-      footer {
-        animation: none;
-      }
-
-      .back {
-        transition: none;
-      }
     }
   </style>
 </head>
@@ -215,25 +153,22 @@
     </header>
 
     <main class="content">
-      <h1>YOU’RE ON THE WAITING LIST.</h1>
-      <p class="text">
-        Thanks for signing up. We’ll email you when Pump Bar launches — nothing else from this list.
-      </p>
-      <p class="privacy">
-        You can withdraw consent or request removal anytime at
-        <a href="mailto:info@pumpbar.uk">info@pumpbar.uk</a>.
-        Full details:
-        <a href="/privacy.html">Privacy notice</a>.
-      </p>
-      <a class="back" href="/">Back to Pump Bar</a>
+      <h1>COMPANY INFORMATION</h1>
+      <div class="company-block">
+        <p>Pump Bar Limited</p>
+        <p>Registered in England and Wales</p>
+        <p>Company number: 16791402</p>
+        <p>Registered office: The Old Rectory, Church Lane, Gamston, Retford, England, DN22 0QB</p>
+        <p>Contact: <a href="mailto:info@pumpbar.uk">info@pumpbar.uk</a></p>
+      </div>
     </main>
 
     <footer>
       <p>© 2026 Pump Bar Limited</p>
       <p>
-        <a href="/privacy.html">Privacy notice</a>
+        <a href="/">Waiting list</a>
         ·
-        <a href="/company-information.html">Company information</a>
+        <a href="/privacy.html">Privacy notice</a>
         ·
         <a href="mailto:info@pumpbar.uk">info@pumpbar.uk</a>
       </p>
